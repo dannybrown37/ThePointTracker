@@ -6,12 +6,29 @@ class AddGoal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            iconClass: 'plus',
+            goalFormVisibility: 'invisible',
             goalTextInput: '',
             goalValueInput: '',
         };
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleIconClick = this.handleIconClick.bind(this);
+    }
+
+    handleIconClick() {
+        if (this.state.goalFormVisibility === 'invisible') {
+            this.setState({
+                goalFormVisibility: 'visible',
+                iconClass: 'minus',
+            });
+        } else {
+            this.setState({
+                goalFormVisibility: 'invisible',
+                iconClass: 'plus',
+            });
+        }
     }
 
     handleTextChange(event) {
@@ -42,6 +59,8 @@ class AddGoal extends Component {
         this.setState({
             goalTextInput: '',
             goalValueInput: '',
+            goalFormVisibility: 'invisible',
+            iconClass: 'plus',
         });
         this.props.addNewGoal({ [goalText]: goalValue });
 
@@ -49,32 +68,50 @@ class AddGoal extends Component {
     }
 
     render() {
+        const currentIconClass = `fas fa-${this.state.iconClass}-circle fa-lg`;
+
         return (
-            <div id="addGoal">
+            <div id="addGoal" >
 
-                <h4 id="addGoalHeader">Add a Goal</h4>
+                <div id="addItemIcon" className="row">
 
-                <form id="addGoalForm" onSubmit={this.handleSubmit}>
+                    <button className="btn" onClick={this.handleIconClick}>
+                        <i className={currentIconClass} />
+                    </button>
 
-                    <input
-                        id="goalText"
-                        type="text"
-                        placeholder="Add new goal text here..."
-                        value={this.state.goalTextInput}
-                        onChange={this.handleTextChange} />
+                </div>
 
-                    <input
-                        id="goalValue"
-                        type="text"
-                        placeholder="Add new goal value here..."
-                        value={this.state.goalValueInput}
-                        onChange={this.handleValueChange} />
+                <div className="row">
 
-                    <input
-                        id="goalSubmit"
-                        type="submit" />
+                    <form
+                        id="addGoalForm"
+                        className={this.state.goalFormVisibility}
+                        onSubmit={this.handleSubmit}>
 
-                </form>
+                        <input
+                            id="goalText"
+                            className="col-xs-8"
+                            type="text"
+                            placeholder="Add new goal text here..."
+                            value={this.state.goalTextInput}
+                            onChange={this.handleTextChange} />
+
+                        <input
+                            id="goalValue"
+                            className="col-xs-3"
+                            type="text"
+                            placeholder="Add new goal value here..."
+                            value={this.state.goalValueInput}
+                            onChange={this.handleValueChange} />
+
+                        <input
+                            id="goalSubmit"
+                            className="col-xs-1"
+                            type="submit" />
+
+                    </form>
+
+                </div>
 
             </div>
         );

@@ -6,12 +6,29 @@ class AddReward extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            iconClass: 'plus',
+            rewardFormVisibility: 'invisible',
             rewardTextInput: '',
             rewardValueInput: '',
         };
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleIconClick = this.handleIconClick.bind(this);
+    }
+
+    handleIconClick() {
+        if (this.state.rewardFormVisibility === 'invisible') {
+            this.setState({
+                rewardFormVisibility: 'visible',
+                iconClass: 'minus',
+            });
+        } else {
+            this.setState({
+                rewardFormVisibility: 'invisible',
+                iconClass: 'plus',
+            });
+        }
     }
 
     handleTextChange(event) {
@@ -42,6 +59,8 @@ class AddReward extends Component {
         this.setState({
             rewardTextInput: '',
             rewardValueInput: '',
+            rewardFormVisibility: 'invisible',
+            iconClass: 'plus',
         });
         this.props.addNewReward({ [rewardText]: rewardValue });
 
@@ -49,32 +68,51 @@ class AddReward extends Component {
     }
 
     render() {
+        const currentIconClass = `fas fa-${this.state.iconClass}-circle fa-lg`;
+
         return (
+
             <div id="addReward">
 
-                <h4 id="addRewardHeader">Add a Reward</h4>
+                <div id="addItemIcon" className="row">
 
-                <form id="addRewardForm" onSubmit={this.handleSubmit}>
+                    <button className="btn" onClick={this.handleIconClick}>
+                        <i className={currentIconClass} />
+                    </button>
 
-                    <input
-                        id="rewardText"
-                        type="text"
-                        placeholder="Add new reward text here..."
-                        value={this.state.rewardTextInput}
-                        onChange={this.handleTextChange} />
+                </div>
 
-                    <input
-                        id="rewardValue"
-                        type="text"
-                        placeholder="Add new reward value here..."
-                        value={this.state.rewardValueInput}
-                        onChange={this.handleValueChange} />
+                <div className="row">
 
-                    <input
-                        id="rewardSubmit"
-                        type="submit" />
+                    <form
+                        id="addRewardForm"
+                        className={this.state.rewardFormVisibility}
+                        onSubmit={this.handleSubmit}>
 
-                </form>
+                        <input
+                            id="rewardText"
+                            className="col-xs-8"
+                            type="text"
+                            placeholder="Add new reward text here..."
+                            value={this.state.rewardTextInput}
+                            onChange={this.handleTextChange} />
+
+                        <input
+                            id="rewardValue"
+                            className="col-xs-3"
+                            type="text"
+                            placeholder="Add new reward value here..."
+                            value={this.state.rewardValueInput}
+                            onChange={this.handleValueChange} />
+
+                        <input
+                            className="col-xs-1"
+                            id="rewardSubmit"
+                            type="submit" />
+
+                    </form>
+
+                </div>
 
             </div>
         );

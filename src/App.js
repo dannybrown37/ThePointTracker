@@ -4,7 +4,7 @@ import AppHeader from './components/AppHeader';
 import GoalGrid from './components/GoalGrid';
 import PointTotal from './components/PointTotal';
 import AddGoal from './components/AddGoal';
-import UsePoints from './components/UsePoints';
+import RewardGrid from './components/RewardGrid';
 import AddReward from './components/AddReward';
 
 
@@ -37,6 +37,18 @@ class App extends Component {
         this.setState({ rewardsAndPoints: mergedObject });
     }
 
+    handleGoalDeletion = (goalToDelete) => {
+        const newGoals = this.state.goalsAndPoints;
+        delete newGoals[goalToDelete];
+        this.setState({ goalsAndPoints: newGoals });
+    }
+
+    handleRewardDeletion = (rewardToDelete) => {
+        const newRewards = this.state.rewardsAndPoints;
+        delete newRewards[rewardToDelete];
+        this.setState({ rewardsAndPoints: newRewards });
+    }
+
     handlePointAddition = (value) => {
         this.setState({ pointTotal: this.state.pointTotal + value });
     }
@@ -56,14 +68,16 @@ class App extends Component {
 
                 <GoalGrid
                     goalsAndPoints={this.state.goalsAndPoints}
-                    addPointValue={this.handlePointAddition} />
+                    addPointValue={this.handlePointAddition}
+                    removeGoal={this.handleGoalDeletion} />
 
                 <AddGoal
                     addNewGoal={this.handleNewGoal} />
 
-                <UsePoints
+                <RewardGrid
                     rewardsAndPoints={this.state.rewardsAndPoints}
-                    deletePointValue={this.handlePointDeletion} />
+                    deletePointValue={this.handlePointDeletion}
+                    removeReward={this.handleRewardDeletion} />
 
                 <AddReward
                     addNewReward={this.handleNewReward} />

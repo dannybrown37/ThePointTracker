@@ -6,7 +6,7 @@ class GoalGrid extends Component {
     constructor(props) {
         super(props);
         this.handleGoalClick = this.handleGoalClick.bind(this);
-        this.handleGoalDeletion = this.handleGoalDeletion.bind(this);
+        this.handleGoalDeleteClick = this.handleGoalDeleteClick.bind(this);
     }
 
     handleGoalClick(e) {
@@ -14,32 +14,34 @@ class GoalGrid extends Component {
         this.props.addPointValue(parseFloat(e.target.getAttribute('value')));
     }
 
-    handleGoalDeletion(e) {
-        // TODO -- pick up here
+    handleGoalDeleteClick(e) {
         e.preventDefault();
-        console.log(e.target.parentElement.parentElement.getAttribute('value'));
-        // this.props.removeGoal();
+        this.props.removeGoal(e.target.getAttribute('content'));
     }
 
     render() {
         const goalButtons = Object.keys(this.props.goalsAndPoints).map(
             i => (
-                <a
-                    className="btn btn-info btn-block"
-                    key={i}
-                    onClick={this.handleGoalClick}
-                    value={this.props.goalsAndPoints[i]}>
+                <div className="row" key={i}>
+                    <a
+                        className="btn btn-info col-xs-11"
+                        onClick={this.handleGoalClick}
+                        content={i}
+                        value={this.props.goalsAndPoints[i]}>
 
-                    {i} – {this.props.goalsAndPoints[i]}
+                        {i} – {this.props.goalsAndPoints[i]}
+
+                    </a>
 
                     <button
-                        className="deleteGoal"
-                        onClick={this.handleGoalDeletion}>
+                        className="btn col-xs-1"
+                        content={i}
+                        onClick={this.handleGoalDeleteClick}>
 
                         <i className="fas fa-trash-alt" />
 
                     </button>
-                </a>
+                </div>
             ),
         );
 
