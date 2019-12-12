@@ -5,22 +5,32 @@ class UsePoints extends Component {
 
     constructor(props) {
         super(props);
-        this.handlePointUsage = this.handlePointUsage.bind(this);
+        this.handleRewardClick = this.handleRewardClick.bind(this);
     }
 
-    handlePointUsage() {
-
+    handleRewardClick(event) {
+        this.props.deletePointValue(parseFloat(event.target.value));
     }
 
     render() {
+        const rewardButtons = Object.keys(this.props.rewardsAndPoints).map(
+            i => (
+                <button
+                    key={i}
+                    onClick={this.handleRewardClick}
+                    value={this.props.rewardsAndPoints[i]}>
+
+                    {i} – {this.props.rewardsAndPoints[i]}
+
+                </button>
+            ),
+        );
         return (
             <div id="usePointsOptions">
-                <h4 id="usePointsHeader">Use Those Points, Baby</h4>
-                <button>5</button>
-                <button>10</button>
-                <button>15</button>
-                <button>20</button>
-                <button>25</button>
+                <h4 id="usePointsHeader">Indulgences</h4>
+                <div id="usePointsOptionsGrid">
+                    {rewardButtons}
+                </div>
             </div>
         );
     }

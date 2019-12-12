@@ -30,12 +30,12 @@ class AddGoal extends Component {
         const goalValue = this.state.goalValueInput;
 
         if (goalText.length === 0) {
-            alert('Your goal must contain text!');
+            // alert('Your goal must contain text!');
             return false;
         }
 
         if (isNaN(parseFloat(goalValue))) {
-            alert("Your goal's value must be a number!");
+            // alert("Your goal's value must be a number!");
             return false;
         }
 
@@ -50,28 +50,28 @@ class AddGoal extends Component {
 
     render() {
         return (
-            <div id="add-goal">
+            <div id="addGoal">
 
-                <h4 id="add-goal-header">Add a Goal</h4>
+                <h4 id="addGoalHeader">Add a Goal</h4>
 
-                <form id="add-goal-form" onSubmit={this.handleSubmit}>
+                <form id="addGoalForm" onSubmit={this.handleSubmit}>
 
                     <input
-                        id="goal-text"
+                        id="goalText"
                         type="text"
                         placeholder="Add new goal text here..."
                         value={this.state.goalTextInput}
                         onChange={this.handleTextChange} />
 
                     <input
-                        id="goal-value"
+                        id="goalValue"
                         type="text"
                         placeholder="Add new goal value here..."
                         value={this.state.goalValueInput}
                         onChange={this.handleValueChange} />
 
                     <input
-                        id="goal-submit"
+                        id="goalSubmit"
                         type="submit" />
 
                 </form>
