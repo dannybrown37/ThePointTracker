@@ -6,29 +6,51 @@ class GoalGrid extends Component {
     constructor(props) {
         super(props);
         this.handleGoalClick = this.handleGoalClick.bind(this);
+        this.handleGoalDeleteClick = this.handleGoalDeleteClick.bind(this);
     }
 
-    handleGoalClick(event) {
-        this.props.addPointValue(parseFloat(event.target.value));
+    handleGoalClick(e) {
+        e.preventDefault();
+        this.props.addPointValue(parseFloat(e.target.getAttribute('value')));
+    }
+
+    handleGoalDeleteClick(e) {
+        e.preventDefault();
+        this.props.removeGoal(e.target.getAttribute('content'));
     }
 
     render() {
         const goalButtons = Object.keys(this.props.goalsAndPoints).map(
             i => (
-                <button
-                    key={i}
-                    onClick={this.handleGoalClick}
-                    value={this.props.goalsAndPoints[i]}>
+                <div className="row" key={i}>
+                    <a
+                        className="btn btn-info col-xs-11"
+                        onClick={this.handleGoalClick}
+                        content={i}
+                        value={this.props.goalsAndPoints[i]}>
 
-                    {i} – {this.props.goalsAndPoints[i]}
+                        {i} – {this.props.goalsAndPoints[i]}
 
-                </button>
+                    </a>
+
+                    <button
+                        className="btn col-xs-1"
+                        content={i}
+                        onClick={this.handleGoalDeleteClick}>
+
+                        <i className="fas fa-trash-alt" />
+
+                    </button>
+                </div>
             ),
         );
 
         return (
-            <div id="goalGrid">
-                {goalButtons}
+            <div id="goals">
+                <h4 id="goalsHeader">Goals</h4>
+                <div id="goalGrid">
+                    {goalButtons}
+                </div>
             </div>
         );
     }

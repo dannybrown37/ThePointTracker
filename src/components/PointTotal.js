@@ -10,7 +10,7 @@ class PointTotal extends Component {
     render() {
         return (
             <div id="pointTotal">
-                {this.props.pointTotal}
+                {Math.round(this.props.pointTotal * 10) / 10}
             </div>
         );
     }

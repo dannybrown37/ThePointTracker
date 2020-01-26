@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
 
-class AddGoal extends Component {
+class AddReward extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             iconClass: 'plus',
-            goalFormVisibility: 'invisible',
-            goalTextInput: '',
-            goalValueInput: '',
+            rewardFormVisibility: 'invisible',
+            rewardTextInput: '',
+            rewardValueInput: '',
         };
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
@@ -18,51 +18,51 @@ class AddGoal extends Component {
     }
 
     handleIconClick() {
-        if (this.state.goalFormVisibility === 'invisible') {
+        if (this.state.rewardFormVisibility === 'invisible') {
             this.setState({
-                goalFormVisibility: 'visible',
+                rewardFormVisibility: 'visible',
                 iconClass: 'minus',
             });
         } else {
             this.setState({
-                goalFormVisibility: 'invisible',
+                rewardFormVisibility: 'invisible',
                 iconClass: 'plus',
             });
         }
     }
 
     handleTextChange(event) {
-        this.setState({ goalTextInput: event.target.value });
+        this.setState({ rewardTextInput: event.target.value });
     }
 
     handleValueChange(event) {
-        this.setState({ goalValueInput: event.target.value });
+        this.setState({ rewardValueInput: event.target.value });
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
         // validate submission
-        const goalText = this.state.goalTextInput;
-        const goalValue = this.state.goalValueInput;
+        const rewardText = this.state.rewardTextInput;
+        const rewardValue = this.state.rewardValueInput;
 
-        if (goalText.length === 0) {
-            // alert('Your goal must contain text!');
+        if (rewardText.length === 0) {
+            // alert('Your reward must contain text!');
             return false;
         }
 
-        if (isNaN(parseFloat(goalValue))) {
-            // alert("Your goal's value must be a number!");
+        if (isNaN(parseFloat(rewardValue))) {
+            // alert("Your reward's value must be a number!");
             return false;
         }
 
         this.setState({
-            goalTextInput: '',
-            goalValueInput: '',
-            goalFormVisibility: 'invisible',
+            rewardTextInput: '',
+            rewardValueInput: '',
+            rewardFormVisibility: 'invisible',
             iconClass: 'plus',
         });
-        this.props.addNewGoal({ [goalText]: goalValue });
+        this.props.addNewReward({ [rewardText]: rewardValue });
 
         return true;
     }
@@ -71,7 +71,8 @@ class AddGoal extends Component {
         const currentIconClass = `fas fa-${this.state.iconClass}-circle fa-lg`;
 
         return (
-            <div id="addGoal" >
+
+            <div id="addReward">
 
                 <div id="addItemIcon" className="row">
 
@@ -84,29 +85,29 @@ class AddGoal extends Component {
                 <div className="row">
 
                     <form
-                        id="addGoalForm"
-                        className={this.state.goalFormVisibility}
+                        id="addRewardForm"
+                        className={this.state.rewardFormVisibility}
                         onSubmit={this.handleSubmit}>
 
                         <input
-                            id="goalText"
+                            id="rewardText"
                             className="col-xs-8"
                             type="text"
-                            placeholder="Add new goal text here..."
-                            value={this.state.goalTextInput}
+                            placeholder="Add new reward text here..."
+                            value={this.state.rewardTextInput}
                             onChange={this.handleTextChange} />
 
                         <input
-                            id="goalValue"
+                            id="rewardValue"
                             className="col-xs-3"
                             type="text"
-                            placeholder="Add new goal value here..."
-                            value={this.state.goalValueInput}
+                            placeholder="Add new reward value here..."
+                            value={this.state.rewardValueInput}
                             onChange={this.handleValueChange} />
 
                         <input
-                            id="goalSubmit"
                             className="col-xs-1"
+                            id="rewardSubmit"
                             type="submit" />
 
                     </form>
@@ -118,4 +119,4 @@ class AddGoal extends Component {
     }
 }
 
-export default AddGoal;
+export default AddReward;
