@@ -17,7 +17,6 @@ class App extends Component {
                 'Stayed within my calorie goal': 0.5,
                 'Walked 10,000 steps': 1,
                 'Burned 3,500 calories': 1.5,
-                WTF: 5,
             },
 
             pointTotal: 0,
