@@ -1,5 +1,4 @@
 {
-    "homepage": "http://dannybrown37.github.io/ThePointTracker",
     "name": "ThePointTracker",
     "dependencies": {
         "react": "^15.5.4",
@@ -21,7 +20,6 @@
         "eslint-plugin-react": "^7.0.1",
         "extract-text-webpack-plugin": "^2.1.0",
         "file-loader": "^0.11.1",
-        "gh-pages": "^2.2.0",
         "html-webpack-plugin": "^2.28.0",
         "json-loader": "^0.5.4",
         "postcss-flexbugs-fixes": "^3.0.0",
@@ -34,7 +32,5 @@
     "scripts": {
         "start": "node scripts/start.js",
         "build": "export NODE_ENV=production && rm -rf ./build && webpack --env.production --optimize-minimize",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
     }
 }
