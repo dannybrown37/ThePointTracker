@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import AppHeader from './components/AppHeader';
 import GoalGrid from './components/GoalGrid';
@@ -9,52 +10,35 @@ import AddReward from './components/AddReward';
 
 
 class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-
-            goalsAndPoints: {
-                'Stayed within my calorie goal': 0.5,
-                'Walked 10,000 steps': 1,
-                'Burned 3,500 calories': 1.5,
-            },
-
-            pointTotal: 0,
-
-            rewardsAndPoints: {
-                'Cheat meal': 25,
-            },
-        };
-    }
 
     handleNewGoal = (newGoal) => {
-        const mergedObject = { ...this.state.goalsAndPoints, ...newGoal };
-        this.setState({ goalsAndPoints: mergedObject });
+        this.props.dispatch({ type: 'handleNewGoal', value: newGoal });
     }
 
     handleNewReward = (newReward) => {
-        const mergedObject = { ...this.state.rewardsAndPoints, ...newReward };
-        this.setState({ rewardsAndPoints: mergedObject });
+        this.props.dispatch({ type: 'handleNewReward', value: newReward });
     }
 
     handleGoalDeletion = (goalToDelete) => {
-        const newGoals = this.state.goalsAndPoints;
-        delete newGoals[goalToDelete];
-        this.setState({ goalsAndPoints: newGoals });
+        this.props.dispatch({
+            type: 'handleGoalDeletion',
+            value: goalToDelete,
+        });
     }
 
     handleRewardDeletion = (rewardToDelete) => {
-        const newRewards = this.state.rewardsAndPoints;
-        delete newRewards[rewardToDelete];
-        this.setState({ rewardsAndPoints: newRewards });
+        this.props.dispatch({
+            type: 'handleRewardDeletion',
+            value: rewardToDelete,
+        });
     }
 
-    handlePointAddition = (value) => {
-        this.setState({ pointTotal: this.state.pointTotal + value });
+    handlePointAddition = (amount) => {
+        this.props.dispatch({ type: 'handlePointAddition', value: amount });
     }
 
-    handlePointDeletion = (value) => {
-        this.setState({ pointTotal: this.state.pointTotal - value });
+    handlePointDeletion = (amount) => {
+        this.props.dispatch({ type: 'handlePointDeletion', value: amount });
     }
 
     render() {
@@ -64,10 +48,10 @@ class App extends Component {
                 <AppHeader />
 
                 <PointTotal
-                    pointTotal={this.state.pointTotal} />
+                    pointTotal={this.props.pointTotal} />
 
                 <GoalGrid
-                    goalsAndPoints={this.state.goalsAndPoints}
+                    goalsAndPoints={this.props.goalsAndPoints}
                     addPointValue={this.handlePointAddition}
                     removeGoal={this.handleGoalDeletion} />
 
@@ -75,7 +59,7 @@ class App extends Component {
                     addNewGoal={this.handleNewGoal} />
 
                 <RewardGrid
-                    rewardsAndPoints={this.state.rewardsAndPoints}
+                    rewardsAndPoints={this.props.rewardsAndPoints}
                     deletePointValue={this.handlePointDeletion}
                     removeReward={this.handleRewardDeletion} />
 
@@ -87,4 +71,9 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    goalsAndPoints: state.goalsAndPoints,
+    pointTotal: state.pointTotal,
+    rewardsAndPoints: state.rewardsAndPoints,
+});
+export default connect(mapStateToProps)(App);

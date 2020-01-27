@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+
+const mapStateToProps = state => ({
+    rewardsAndPoints: state.rewardsAndPoints,
+});
 
 class RewardGrid extends Component {
 
@@ -56,4 +61,5 @@ class RewardGrid extends Component {
 
 }
 
-export default RewardGrid;
+
+export default connect(mapStateToProps)(RewardGrid);

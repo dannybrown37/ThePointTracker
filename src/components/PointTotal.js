@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+
+const mapStateToProps = state => ({
+    pointTotal: state.pointTotal,
+});
 
 class PointTotal extends Component {
     constructor(props) {
@@ -17,4 +22,4 @@ class PointTotal extends Component {
 
 }
 
-export default PointTotal;
+export default connect(mapStateToProps)(PointTotal);

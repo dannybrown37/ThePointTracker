@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+
+const mapStateToProps = state => ({
+    goalsAndPoints: state.goalsAndPoints,
+});
 
 
 class GoalGrid extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.handleGoalClick = this.handleGoalClick.bind(this);
         this.handleGoalDeleteClick = this.handleGoalDeleteClick.bind(this);
     }
@@ -54,7 +60,6 @@ class GoalGrid extends Component {
             </div>
         );
     }
-
 }
 
-export default GoalGrid;
+export default connect(mapStateToProps)(GoalGrid);
